@@ -188,17 +188,17 @@ to search.  Pressing
   --------------------------------------------------------------------------
   国語辞典            @point{}テスト
   英和辞典            test
-  
-  
+
+
   --------------------------------------------------------------------------
   -U:%*  Lookup: *Entry* @{*:test@} [2]      (Entry Abbrev)--L1--C20
   --------------------------------------------------------------------------
   テスト
   [名] 1. 試験....
-  
-  
-  
-  
+
+
+
+
   --------------------------------------------------------------------------
   -U:%*  Lookup: *Content* @{テスト@}      (Content Abbrev)--L1--C0--
   --------------------------------------------------------------------------
@@ -307,7 +307,7 @@ Besides agent options, following dictionary options may be used.
 
 
 * Queries
-  You need to query to search dictionaries for words.  
+  You need to query to search dictionaries for words.
 ** Query commands
 You can query by patterns, such as "testi*" etc.
 - lookup-pattern :: Look-up dictionary by pattern.
@@ -371,13 +371,24 @@ Arrangements are processed in the following order.
 /Modules/ are a set of dictionaries.  You can specify your preferred
 set of dictionaries as modules.
 
-You can create, delete and edit modules by /Module List/ Buffer.
+You can create, delete and edit modules by /Module List/ Buffer. (~M-x lookup-list-modules~)
 
 You can also set the module by ~lookup-search-modules~ variable.
 
 #+BEGIN_SRC emacs-lisp
 (setq lookup-search-modules '("modules" <dict-id>+)...)
 #+END_SRC
+
+You can create a function to search with a specific module as below.
+The below function does ~lookup-pattern~ with "english" module.
+
+#+BEGIN_SRC emacs-lisp
+  (defun lookup-pattern-module-english ()
+    (interactive)
+    (let ((module (lookup-get-module "english")))
+      (lookup-pattern (lookup-input-pattern module) module)))
+#+END_SRC
+
 * Cache
 Lookup will save /title/, /methods/ attributes of dictionary to cache
 file, to speed up the launching of Lookup.  It will also save the
@@ -389,7 +400,7 @@ titles of dictionary.
 Cache will be saved when `lookup' /exits/ (M-x lookup-exit).  It will
 read the cache when `lookup' /starts/ (M-x lookup).  When you restart
 the Lookup, it will write and read the cache simultaneously.
-Therefore, if you want to edit the cache file, you must exit `lookup', 
+Therefore, if you want to edit the cache file, you must exit `lookup',
 re-write cache file, then restart Emacs.
 
 * List of Search Agents
@@ -483,7 +494,7 @@ Following Options are supported.
 |------------------+------------------------------+--------------------------------|
 | :extension       | ".xml"                       | (not used in ndsary.)          |
 |                  | nil                          | default: ".txt" is used.       |
-    
+
 ** ndbuffer
 *** Summary
 :PROPERTIES:
